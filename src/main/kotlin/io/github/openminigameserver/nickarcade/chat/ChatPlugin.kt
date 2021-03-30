@@ -1,8 +1,11 @@
 package io.github.openminigameserver.nickarcade.chat
 
+import io.github.openminigameserver.nickarcade.chat.commands.ChatCommands
+import io.github.openminigameserver.nickarcade.chat.commands.MessageCommands
 import io.github.openminigameserver.nickarcade.chat.impl.StaffChatChannel
 import io.github.openminigameserver.nickarcade.chat.model.ChatChannelType
 import io.github.openminigameserver.nickarcade.chat.model.ChatMessageOrigin
+import io.github.openminigameserver.nickarcade.core.commandAnnotationParser
 import io.github.openminigameserver.nickarcade.core.data.sender.misc.ArcadeWatcherSender
 import io.github.openminigameserver.nickarcade.core.events.data.PlayerDataJoinEvent
 import io.github.openminigameserver.nickarcade.core.manager.getArcadeSender
@@ -16,6 +19,7 @@ class ChatPlugin : JavaPlugin() {
         registerJoinEvent()
         registerChatEvent()
         ChatCommands.init()
+        commandAnnotationParser.parse(MessageCommands)
         prepareArcadeSender()
     }
 

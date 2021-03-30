@@ -1,9 +1,11 @@
-package io.github.openminigameserver.nickarcade.chat
+package io.github.openminigameserver.nickarcade.chat.commands
 
 import cloud.commandframework.annotations.Argument
 import cloud.commandframework.annotations.CommandMethod
 import cloud.commandframework.arguments.standard.StringArgument
 import cloud.commandframework.kotlin.extension.buildAndRegister
+import io.github.openminigameserver.nickarcade.chat.ChatChannelsManager
+import io.github.openminigameserver.nickarcade.chat.currentChannel
 import io.github.openminigameserver.nickarcade.chat.model.ChatChannelType
 import io.github.openminigameserver.nickarcade.chat.model.ChatEmote
 import io.github.openminigameserver.nickarcade.chat.model.ChatMessageOrigin

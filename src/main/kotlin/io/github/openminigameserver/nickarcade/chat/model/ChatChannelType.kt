@@ -12,5 +12,6 @@ enum class ChatChannelType(
     ALL(useActualName = false),
     PARTY(PrefixData(NamedTextColor.BLUE)),
     STAFF(PrefixData(NamedTextColor.AQUA), HypixelPackageRank.HELPER),
+    PRIVATE_MESSAGE(isInternal = true),
     USER_INPUT(isInternal = true)
 }
