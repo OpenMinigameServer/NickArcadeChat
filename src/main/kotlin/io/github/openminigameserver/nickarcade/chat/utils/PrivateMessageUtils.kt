@@ -16,19 +16,19 @@ import net.kyori.adventure.text.format.NamedTextColor.RED
 import net.kyori.adventure.text.format.NamedTextColor.WHITE
 import kotlin.time.minutes
 
-object PrivateMessageUtils {
+private val lastReplyTag = RuntimeExtraDataTag.of<ArcadeSender>("last-reply", 5.minutes)
 
-    private fun getMessageToSend(prefix: String, user: ArcadeSender, message: Component): ComponentLike {
-        return PrivateMessageComponent(prefix, user, message)
+var ArcadeSender.lastReply: ArcadeSender?
+    get() = get(lastReplyTag)
+    set(value) {
+        set(lastReplyTag, value)
     }
 
-    private val lastReplyTag = RuntimeExtraDataTag.of<ArcadeSender>("last-reply", 5.minutes)
+object PrivateMessageUtils {
 
-    var ArcadeSender.lastReply: ArcadeSender?
-        get() = get(lastReplyTag)
-        set(value) {
-            set(lastReplyTag, value)
-        }
+    private fun getMessageToSend(prefix: String, user: ArcadeSender, message: Component, rawMessage: Component): ComponentLike {
+        return PrivateMessageComponent(prefix, user, message, rawMessage)
+    }
 
     fun replyPrivateMessage(from: ArcadeSender, message: Component) {
         val targetReply = from.lastReply
@@ -57,8 +57,8 @@ object PrivateMessageUtils {
             }
 
             val result = PrivateMessageChannel.processChatMessage(from, message)
-            from.audience.sendMessage(getMessageToSend("To", privateMessageTarget, result))
-            privateMessageTarget.audience.sendMessage(getMessageToSend("From", from, result))
+            from.audience.sendMessage(getMessageToSend("To", privateMessageTarget, result, message))
+            privateMessageTarget.audience.sendMessage(getMessageToSend("From", from, result, message))
             privateMessageTarget.lastReply = from
             consoleData.audience.sendMessage(text {
                 it.append(text("["))

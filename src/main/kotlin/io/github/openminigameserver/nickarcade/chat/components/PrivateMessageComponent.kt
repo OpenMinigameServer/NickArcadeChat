@@ -5,7 +5,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.format.NamedTextColor
 
-class PrivateMessageComponent(val action: String, val user: ArcadeSender, val message: Component) :
+class PrivateMessageComponent(val action: String, val user: ArcadeSender, val message: Component, val rawMessage: Component) :
     ComponentLike {
     override fun asComponent(): Component {
         return Component.text {
