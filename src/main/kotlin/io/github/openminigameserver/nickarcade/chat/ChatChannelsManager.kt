@@ -13,11 +13,10 @@ object ChatChannelsManager {
     init {
         registerChannel(allChatChannel)
         registerChannel(StaffChatChannel)
-//        registerChannel(PartyChatChannel)
         registerChannel(UserInputChannel)
     }
 
-    private fun registerChannel(channel: AbstractChatChannel) {
+    fun registerChannel(channel: AbstractChatChannel) {
         channels[channel.type] = channel
     }
 
