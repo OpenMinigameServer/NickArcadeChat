@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.format.NamedTextColor.*
 import net.kyori.adventure.text.format.TextDecoration.BOLD
+import java.util.*
 
 enum class ChatEmote(val replacement: ComponentLike, emote: String? = null) {
     HEART(text("❤", RED), "<3"),
@@ -111,6 +112,6 @@ enum class ChatEmote(val replacement: ComponentLike, emote: String? = null) {
     }),
     ;
 
-    val emote: String = emote ?: ":${name.toLowerCase()}:"
+    val emote: String = emote ?: ":${name.lowercase(Locale.getDefault())}:"
 
 }

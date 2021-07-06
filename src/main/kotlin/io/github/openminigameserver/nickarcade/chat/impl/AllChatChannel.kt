@@ -8,12 +8,11 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import kotlin.time.Duration
-import kotlin.time.seconds
 
 class AllChatChannel : AbstractChatChannel(ChatChannelType.ALL) {
 
     override suspend fun getPlayerRateLimit(sender: ArcadePlayer): Duration {
-        return if (sender.hasAtLeastRank(HypixelPackageRank.VIP)) Duration.ZERO else 3.seconds
+        return if (sender.hasAtLeastRank(HypixelPackageRank.VIP)) Duration.ZERO else Duration.seconds(3)
     }
 
     override suspend fun getRecipients(sender: ArcadeSender, message: Component): Audience {

@@ -27,7 +27,7 @@ object ChatCommands {
 
     private fun registerChatChannelCommands(commandHelper: NickArcadeCommandHelper) {
         ChatChannelsManager.channels.filterNot { it.key.isInternal }.forEach { (type, channel) ->
-            val smallLetter = type.name.first().toLowerCase()
+            val smallLetter = type.name.first().lowercaseChar()
             commandHelper.manager.buildAndRegister("${smallLetter}chat", aliases = arrayOf("${smallLetter}c")) {
                 argument {
                     StringArgument.greedy("text")

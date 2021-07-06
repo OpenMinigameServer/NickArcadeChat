@@ -14,9 +14,9 @@ import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.format.NamedTextColor.RED
 import net.kyori.adventure.text.format.NamedTextColor.WHITE
-import kotlin.time.minutes
+import kotlin.time.Duration
 
-private val lastReplyTag = RuntimeExtraDataTag.of<ArcadeSender>("last-reply", 5.minutes)
+private val lastReplyTag = RuntimeExtraDataTag.of<ArcadeSender>("last-reply", Duration.minutes(5))
 
 var ArcadeSender.lastReply: ArcadeSender?
     get() = get(lastReplyTag)

@@ -14,7 +14,9 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.format.NamedTextColor
+import java.util.*
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 
 abstract class AbstractChatChannel(val type: ChatChannelType) {
     open val showActualValues: Boolean = type.useActualName
@@ -44,12 +46,16 @@ abstract class AbstractChatChannel(val type: ChatChannelType) {
                 )
             ) NamedTextColor.WHITE else NamedTextColor.GRAY
 
-        return text {
+        return text { builder ->
             if (type.prefix != null)
-                it.append(text("${type.name.toLowerCase().capitalize()}> ", type.prefix.color))
-            it.append(senderName)
-            it.append(text(": ", chatColor))
-            it.append(text("", chatColor).append(message))
+                builder.append(text(
+                    "${
+                        type.name.lowercase(Locale.getDefault())
+                            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+                    }> ", type.prefix.color))
+            builder.append(senderName)
+            builder.append(text(": ", chatColor))
+            builder.append(text("", chatColor).append(message))
         }
     }
 
@@ -64,7 +70,7 @@ abstract class AbstractChatChannel(val type: ChatChannelType) {
                 text {
                     it.append(
                         text(
-                            "You can only chat once every ${rateLimit.inSeconds} seconds! Ranked users bypass this restriction!",
+                            "You can only chat once every ${rateLimit.toDouble(DurationUnit.SECONDS)} seconds! Ranked users bypass this restriction!",
                             NamedTextColor.RED
                         )
                     )
